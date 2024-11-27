@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.home
+package com.example.todoapp.ui.screens.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
