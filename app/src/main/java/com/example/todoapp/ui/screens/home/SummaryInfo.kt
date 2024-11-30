@@ -101,7 +101,7 @@ fun SummaryInfo(
                 }
             }
             Text(
-                text = "${(completedTasks.toFloat() / totalTasks.toFloat() .times(100)).toInt()}",
+                text = "${(completedTasks.toFloat() / totalTasks.toFloat()).times(100).toInt()}%",
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold

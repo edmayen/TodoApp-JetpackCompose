@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.example.todoapp.data.FakeTaskLocalDataSource
 import com.example.todoapp.domain.Task
+import com.example.todoapp.ui.screens.home.HomeScreenRoot
 import com.example.todoapp.ui.theme.TODOAppTheme
 import java.util.UUID
 
@@ -24,41 +25,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TODOAppTheme {
-                var text by remember { mutableStateOf("") }
-                val fakeLocalDataSource = FakeTaskLocalDataSource
-                LaunchedEffect(true) {
-                    fakeLocalDataSource.taskFlow.collect {
-                        text = it.toString()
-                    }
-                }
-
-                LaunchedEffect(true) {
-                    fakeLocalDataSource.addTask(
-                        Task(
-                            id = UUID.randomUUID().toString(),
-                            title = "Task 1",
-                            description = "Description 1"
-                        )
-                    )
-                    fakeLocalDataSource.addTask(
-                        Task(
-                            id = UUID.randomUUID().toString(),
-                            title = "Task 2",
-                            description = "Description 2"
-                        )
-                    )
-                }
-
-                Scaffold(
-                    modifier = Modifier.fillMaxSize()
-                ) { innerPadding ->
-                    Text(
-                        text = text,
-                        modifier = Modifier
-                            .padding(top = innerPadding.calculateTopPadding())
-                            .fillMaxSize()
-                    )
-                }
+                HomeScreenRoot()
             }
         }
     }
