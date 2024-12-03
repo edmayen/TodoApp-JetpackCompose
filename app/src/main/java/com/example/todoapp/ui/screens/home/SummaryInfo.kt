@@ -6,7 +6,9 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,8 +19,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.todoapp.R
 import com.example.todoapp.domain.Task
 
 @Composable
@@ -37,7 +41,7 @@ fun SummaryInfo(
         angleRatio.animateTo(
             targetValue = completedTasks/totalTasks.toFloat(),
             animationSpec = tween(
-                durationMillis = 1000
+                durationMillis = 300
             )
         )
     }
@@ -47,6 +51,7 @@ fun SummaryInfo(
         Column(
             modifier = modifier
                 .padding(16.dp)
+                .weight(1.5f)
         ) {
             Text(
                 text = date,
@@ -54,8 +59,9 @@ fun SummaryInfo(
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold
             )
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = taskSummaryStatistics,
+                text = stringResource(R.string.summary_info, taskSummaryStatistics),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -66,6 +72,7 @@ fun SummaryInfo(
             modifier = Modifier
                 .padding(16.dp)
                 .aspectRatio(1f)
+                .weight(1f)
         ) {
             val colorBase = MaterialTheme.colorScheme.inversePrimary
             val colorProgress = MaterialTheme.colorScheme.primary
