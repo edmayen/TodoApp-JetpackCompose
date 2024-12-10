@@ -4,4 +4,11 @@
     <string name="tasks_deleted">Task deleted</string>
     <string name="tasks_updated">Task updated</string>
     <string name="summary_info">You have %s pending tasks</string>
+    <string name="task">Task</string>
+    <string name="is_done">Is done?</string>
+    <string name="done">Done</string>
+    <string name="category">Category\n</string>
+    <string name="task_name">Task name...</string>
+    <string name="task_description">Task description...</string>
+    <string name="save">Save</string>
 </resources>

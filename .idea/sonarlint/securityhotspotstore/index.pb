@@ -161,3 +161,11 @@ x
 Happ/src/main/java/com/example/todoapp/ui/screens/home/HomeScreenEvent.kt,8\6\868b48e829f06105c77f00bf7745cf76b125bfce
 |
 Lapp/src/main/java/com/example/todoapp/ui/screens/home/HomeScreenViewModel.kt,6\0\6076a756d212f21b7acc5c38baac901e53bf035f
+u
+Eapp/src/main/java/com/example/todoapp/ui/screens/detail/TaskScreen.kt,b\d\bddf0d2aa2846977d0c85bbd85a3ef34859947ce
+z
+Japp/src/main/java/com/example/todoapp/ui/screens/detail/TaskScreenState.kt,c\8\c859fe25367c1740513c30f027c59886ef5989dc
+‰
+Yapp/src/main/java/com/example/todoapp/ui/screens/detail/TaskScreenStatePreviewProvider.kt,8\8\88e97fba462464df2d54a095be8d544583f9cdbe
+’
+bapp/src/main/java/com/example/todoapp/ui/screens/detail/provider/TaskScreenStatePreviewProvider.kt,d\8\d84ff76dabee3c1a4a31047ded4e384fa9cc05a6
