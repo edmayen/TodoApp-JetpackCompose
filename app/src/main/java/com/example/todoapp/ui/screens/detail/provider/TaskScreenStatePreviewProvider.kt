@@ -1,5 +1,6 @@
 package com.example.todoapp.ui.screens.detail.provider
 
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.example.todoapp.domain.Category
 import com.example.todoapp.ui.screens.detail.TaskScreenState
@@ -8,32 +9,32 @@ class TaskScreenStatePreviewProvider: PreviewParameterProvider<TaskScreenState> 
     override val values: Sequence<TaskScreenState>
         get() = sequenceOf(
             TaskScreenState(
-                taskName = "Task 1",
-                taskDescription = "Description 1",
+                taskName = TextFieldState("Task 1"),
+                taskDescription = TextFieldState("Description 1"),
                 isTaskDone = false,
                 category = Category.WORK
             ),
             TaskScreenState(
-                taskName = "Task 2",
-                taskDescription = "Description 2",
+                taskName = TextFieldState("Task 2"),
+                taskDescription = TextFieldState("Description 2"),
                 isTaskDone = true,
                 category = Category.WORK
             ),
             TaskScreenState(
-                taskName = "Task 3",
-                taskDescription = "Description 3",
+                taskName = TextFieldState("Task 3"),
+                taskDescription = TextFieldState("Description 3"),
                 isTaskDone = false,
                 category = Category.OTHER
             ),
             TaskScreenState(
-                taskName = "Task 4",
-                taskDescription = "Description 4",
+                taskName = TextFieldState("Task 4"),
+                taskDescription = TextFieldState("Description 4"),
                 isTaskDone = true,
                 category = null
             ),
             TaskScreenState(
-                taskName = "Task 5",
-                taskDescription = "",
+                taskName = TextFieldState("Task 5"),
+                taskDescription = TextFieldState(""),
                 isTaskDone = false,
                 category = null
             )
