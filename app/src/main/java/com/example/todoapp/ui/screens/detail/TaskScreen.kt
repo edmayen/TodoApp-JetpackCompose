@@ -47,7 +47,9 @@ import com.example.todoapp.ui.screens.detail.provider.TaskScreenStatePreviewProv
 import com.example.todoapp.ui.theme.TODOAppTheme
 
 @Composable
-fun TaskScreenRoot() {
+fun TaskScreenRoot(
+    onNavigateBack: () -> Unit = {}
+) {
     val viewModel = viewModel<TaskViewModel>()
     val state = viewModel.state
     val event = viewModel.events
@@ -58,6 +60,7 @@ fun TaskScreenRoot() {
             when (event) {
                 TaskEvent.TaskCreated -> {
                     Toast.makeText(ctx, "Task saved", Toast.LENGTH_SHORT).show()
+                    onNavigateBack()
                 }
             }
         }
@@ -65,7 +68,14 @@ fun TaskScreenRoot() {
     TaskScreen(
         modifier = Modifier,
         state = state,
-        onActionTask = viewModel::onAction
+        onActionTask = { action ->
+            when(action) {
+                ActionTask.Back -> {
+                    onNavigateBack()
+                }
+                else -> viewModel.onAction(action)
+            }
+        }
     )
 }
 

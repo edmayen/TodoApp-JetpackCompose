@@ -42,7 +42,9 @@ import com.example.todoapp.ui.screens.home.providers.HomeScreenPreviewProvider
 import com.example.todoapp.ui.theme.TODOAppTheme
 
 @Composable
-fun HomeScreenRoot() {
+fun HomeScreenRoot(
+    onNavigateToTaskScreen: () -> Unit = {}
+) {
     val viewModel = viewModel<HomeScreenViewModel>()
     val state = viewModel.state
     val event = viewModel.event
@@ -78,7 +80,14 @@ fun HomeScreenRoot() {
 
     HomeScreen(
         state = state,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when(action) {
+                HomeScreenAction.OnAddTask -> {
+                    onNavigateToTaskScreen()
+                }
+                else -> viewModel.onAction(action)
+            }
+        }
     )
 }
 
@@ -135,7 +144,9 @@ fun HomeScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {},
+                onClick = {
+                    onAction(HomeScreenAction.OnAddTask)
+                },
                 content = {
                     Icon(
                         imageVector = Icons.Default.AddCircle,
