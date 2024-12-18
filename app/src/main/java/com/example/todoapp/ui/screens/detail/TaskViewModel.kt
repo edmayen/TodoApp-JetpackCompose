@@ -1,8 +1,14 @@
 package com.example.todoapp.ui.screens.detail
 
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.*
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
+import com.example.todoapp.data.FakeTaskLocalDataSource
+import com.example.todoapp.domain.Task
+import com.example.todoapp.navigation.TaskScreenDestination
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -10,9 +16,13 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class TaskViewModel: ViewModel() {
+class TaskViewModel(
+    savedStateHandle: SavedStateHandle
+): ViewModel() {
 
-    private val fakeTaskLocalDataSource = com.example.todoapp.data.FakeTaskLocalDataSource
+    private val fakeTaskLocalDataSource = FakeTaskLocalDataSource
+
+    val taskData = savedStateHandle.toRoute<TaskScreenDestination>()
 
     var state by mutableStateOf(TaskScreenState())
         private set
@@ -23,8 +33,22 @@ class TaskViewModel: ViewModel() {
     private val canSaveTask = snapshotFlow {
         state.taskName.text.toString()
     }
+    private var editedTask: Task? = null
 
     init {
+        taskData.taskId?.let { taskId ->
+            viewModelScope.launch {
+                val task = fakeTaskLocalDataSource.getTaskById(taskId)
+                editedTask = task
+
+                state = state.copy(
+                    taskName = TextFieldState(task?.title ?: ""),
+                    taskDescription = TextFieldState(task?.description ?: ""),
+                    isTaskDone = task?.isCompleted ?: false,
+                    category = task?.category
+                )
+            }
+        }
         canSaveTask.onEach {
             state = state.copy(
                 canSaveTask = it.isNotEmpty()
@@ -46,14 +70,26 @@ class TaskViewModel: ViewModel() {
                     )
                 }
                 is ActionTask.SaveTask -> {
-                    val task = com.example.todoapp.domain.Task(
-                        id = UUID.randomUUID().toString(),
-                        title = state.taskName.text.toString(),
-                        description = state.taskDescription.text.toString(),
-                        isCompleted = state.isTaskDone,
-                        category = state.category
-                    )
-                    fakeTaskLocalDataSource.addTask(task = task)
+                    editedTask?.let {
+                        fakeTaskLocalDataSource.updateTask(
+                            task = it.copy(
+                                id = it.id,
+                                title = state.taskName.text.toString(),
+                                description = state.taskDescription.text.toString(),
+                                isCompleted = state.isTaskDone,
+                                category = state.category
+                            )
+                        )
+                    }?: run {
+                        val task = Task(
+                            id = UUID.randomUUID().toString(),
+                            title = state.taskName.text.toString(),
+                            description = state.taskDescription.text.toString(),
+                            isCompleted = state.isTaskDone,
+                            category = state.category
+                        )
+                        fakeTaskLocalDataSource.addTask(task = task)
+                    }
                     eventsChannel.send(TaskEvent.TaskCreated)
                 }
                 else -> Unit
