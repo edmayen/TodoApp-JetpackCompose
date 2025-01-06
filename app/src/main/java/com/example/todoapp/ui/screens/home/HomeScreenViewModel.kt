@@ -12,6 +12,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.todoapp.TodoApplication
 import com.example.todoapp.domain.TaskLocalDataSource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -19,8 +20,10 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
-class HomeScreenViewModel(
+@HiltViewModel
+class HomeScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val taskLocalDataSource: TaskLocalDataSource
 ): ViewModel() {
@@ -72,19 +75,6 @@ class HomeScreenViewModel(
                     eventChanel.send(HomeScreenEvent.DeletedAllTasks)
                 }
                 else -> Unit
-            }
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val savedStateHandle = createSavedStateHandle()
-                val dataSource = (this[APPLICATION_KEY] as TodoApplication).dataSource
-                HomeScreenViewModel(
-                    taskLocalDataSource = dataSource,
-                    savedStateHandle = savedStateHandle
-                )
             }
         }
     }

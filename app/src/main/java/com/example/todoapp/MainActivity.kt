@@ -9,7 +9,9 @@ import com.example.todoapp.navigation.NavigationRoot
 import com.example.todoapp.ui.screens.detail.TaskScreenRoot
 import com.example.todoapp.ui.screens.home.HomeScreenRoot
 import com.example.todoapp.ui.theme.TODOAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

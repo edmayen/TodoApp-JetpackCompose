@@ -17,18 +17,20 @@ import com.example.todoapp.domain.Task
 import com.example.todoapp.domain.TaskLocalDataSource
 import com.example.todoapp.navigation.TaskScreenDestination
 import com.example.todoapp.ui.screens.home.HomeScreenViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.util.UUID
+import javax.inject.Inject
 
-class TaskViewModel(
+@HiltViewModel
+class TaskViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val taskLocalDataSource: TaskLocalDataSource
 ): ViewModel() {
-
 
     val taskData = savedStateHandle.toRoute<TaskScreenDestination>()
 
@@ -101,19 +103,6 @@ class TaskViewModel(
                     eventsChannel.send(TaskEvent.TaskCreated)
                 }
                 else -> Unit
-            }
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val savedStateHandle = createSavedStateHandle()
-                val dataSource = (this[APPLICATION_KEY] as TodoApplication).dataSource
-                TaskViewModel(
-                    taskLocalDataSource = dataSource,
-                    savedStateHandle = savedStateHandle
-                )
             }
         }
     }
