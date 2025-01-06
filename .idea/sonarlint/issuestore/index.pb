@@ -177,3 +177,17 @@ A
 gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4
 X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
+j
+:app/src/main/java/com/example/todoapp/data/TodoDatabase.kt,9\e\9e13355b279bf0f2fb4780a2972b3f20e22d6aab
+h
+8app/src/main/java/com/example/todoapp/data/TaskEntity.kt,2\1\21eeabc28215ee38983f61a260fd1b159c0d170e
+e
+5app/src/main/java/com/example/todoapp/data/TaskDao.kt,0\6\0640f8b51d80d768c368b12e7e9907e5ced41868
+u
+Eapp/src/main/java/com/example/todoapp/data/RoomTaskLocalDataSource.kt,f\2\f28e7a6827f24a0cc10acfec1e5f27dff63cb44a
+h
+8app/src/main/java/com/example/todoapp/TodoApplication.kt,3\b\3b9f8563abd8c8321441ba09686f44653b30380a
+o
+?app/src/main/java/com/example/todoapp/data/DataSourceFactory.kt,2\8\28f82f6959b9befa3fc62d1958bcd09a458f4c4c
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e

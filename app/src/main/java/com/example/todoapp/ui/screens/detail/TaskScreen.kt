@@ -48,9 +48,9 @@ import com.example.todoapp.ui.theme.TODOAppTheme
 
 @Composable
 fun TaskScreenRoot(
-    onNavigateBack: () -> Unit = {}
+    onNavigateBack: () -> Unit = {},
+    viewModel: TaskViewModel
 ) {
-    val viewModel = viewModel<TaskViewModel>()
     val state = viewModel.state
     val event = viewModel.events
     val ctx = LocalContext.current

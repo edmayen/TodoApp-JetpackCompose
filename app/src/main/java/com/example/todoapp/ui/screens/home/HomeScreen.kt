@@ -43,9 +43,9 @@ import com.example.todoapp.ui.theme.TODOAppTheme
 
 @Composable
 fun HomeScreenRoot(
-    onNavigateToTaskScreen: (String?) -> Unit = {}
+    onNavigateToTaskScreen: (String?) -> Unit = {},
+    viewModel: HomeScreenViewModel
 ) {
-    val viewModel = viewModel<HomeScreenViewModel>()
     val state = viewModel.state
     val event = viewModel.event
     val ctx = LocalContext.current
