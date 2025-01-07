@@ -187,13 +187,9 @@ u
 Eapp/src/main/java/com/example/todoapp/data/RoomTaskLocalDataSource.kt,f\2\f28e7a6827f24a0cc10acfec1e5f27dff63cb44a
 h
 8app/src/main/java/com/example/todoapp/TodoApplication.kt,3\b\3b9f8563abd8c8321441ba09686f44653b30380a
-o
-?app/src/main/java/com/example/todoapp/data/DataSourceFactory.kt,2\8\28f82f6959b9befa3fc62d1958bcd09a458f4c4c
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 e
 5app/src/main/java/com/example/todoapp/di/AppModule.kt,c\a\cac441f320f46b55f2dbdbd78b3d7a49038e09aa
-h
-8app/src/main/java/com/example/todoapp/data/DataModule.kt,9\b\9b4042375487529246989823d12dca28bdbcff80
 k
 ;app/src/main/java/com/example/todoapp/data/di/DataModule.kt,2\1\2126de76c6ac72c88ee03c000ae74be1b0f0f686

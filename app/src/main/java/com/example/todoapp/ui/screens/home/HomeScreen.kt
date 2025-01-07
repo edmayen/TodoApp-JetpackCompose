@@ -28,6 +28,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
@@ -36,7 +37,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.todoapp.R
 import com.example.todoapp.ui.screens.home.providers.HomeScreenPreviewProvider
 import com.example.todoapp.ui.theme.TODOAppTheme
@@ -127,6 +127,9 @@ fun HomeScreen(
                         )
                         DropdownMenu(
                             expanded = isMenuExpanded,
+                            modifier = Modifier.background(
+                                color = MaterialTheme.colorScheme.surfaceContainer
+                            ),
                             onDismissRequest = { isMenuExpanded = false }
                         ) {
                             DropdownMenuItem(
@@ -136,7 +139,8 @@ fun HomeScreen(
                                 },
                                 text = {
                                     Text(
-                                        text = "Delete all tasks"
+                                        text = "Delete all tasks",
+                                        color = MaterialTheme.colorScheme.onSurface
                                     )
                                 }
                             )
@@ -161,76 +165,88 @@ fun HomeScreen(
         }
     ) { paddingValues ->
 
-        LazyColumn(
-            modifier = Modifier
-                .padding(paddingValues)
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            item {
-                SummaryInfo(
-                    date = state.date,
-                    taskSummaryStatistics = state.summary,
-                    completedTasks = state.completedTasks.size,
-                    totalTasks = state.completedTasks.size + state.pendingTasks.size
+        if (state.pendingTasks.isEmpty() && state.completedTasks.isEmpty()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "No task has been added",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                item {
+                    SummaryInfo(
+                        date = state.date,
+                        taskSummaryStatistics = state.summary,
+                        completedTasks = state.completedTasks.size,
+                        totalTasks = state.completedTasks.size + state.pendingTasks.size
+                    )
+                }
 
-            stickyHeader {
-                SectionTitle(
-                    modifier = Modifier
-                        .fillParentMaxWidth()
-                        .background(
-                            color = MaterialTheme.colorScheme.surface
-                        ),
-                    title = "Completed Tasks"
-                )
-            }
+                stickyHeader {
+                    SectionTitle(
+                        modifier = Modifier
+                            .fillParentMaxWidth()
+                            .background(
+                                color = MaterialTheme.colorScheme.surface
+                            ),
+                        title = "Completed Tasks"
+                    )
+                }
 
-            items(
-                state.completedTasks,
-                key = { task -> task.id }
-            ) { task ->
-                TaskItem(
-                    task = task,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp)),
-                    onClickItem = {
-                        onAction(HomeScreenAction.OnClickTask(task.id))
-                    },
-                    onToggleComplete = { onAction(HomeScreenAction.OnToggleTask(task)) },
-                    onDeleteItem = { onAction(HomeScreenAction.OnDeleteTask(task)) }
-                )
-            }
+                items(
+                    state.completedTasks,
+                    key = { task -> task.id }
+                ) { task ->
+                    TaskItem(
+                        task = task,
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(8.dp)),
+                        onClickItem = {
+                            onAction(HomeScreenAction.OnClickTask(task.id))
+                        },
+                        onToggleComplete = { onAction(HomeScreenAction.OnToggleTask(task)) },
+                        onDeleteItem = { onAction(HomeScreenAction.OnDeleteTask(task)) }
+                    )
+                }
 
-            stickyHeader {
-                SectionTitle(
-                    modifier = Modifier
-                        .fillParentMaxWidth()
-                        .background(
-                            color = MaterialTheme.colorScheme.surface
-                        ),
-                    title = "Pending Tasks"
-                )
-            }
+                stickyHeader {
+                    SectionTitle(
+                        modifier = Modifier
+                            .fillParentMaxWidth()
+                            .background(
+                                color = MaterialTheme.colorScheme.surface
+                            ),
+                        title = "Pending Tasks"
+                    )
+                }
 
-            items(
-                state.pendingTasks,
-                key = { task -> task.id }
-            ) { task ->
-                TaskItem(
-                    task = task,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp)),
-                    onClickItem = {
-                        onAction(HomeScreenAction.OnClickTask(task.id))
-                    },
-                    onToggleComplete = { onAction(HomeScreenAction.OnToggleTask(task)) },
-                    onDeleteItem = { onAction(HomeScreenAction.OnDeleteTask(task)) }
-                )
+                items(
+                    state.pendingTasks,
+                    key = { task -> task.id }
+                ) { task ->
+                    TaskItem(
+                        task = task,
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(8.dp)),
+                        onClickItem = {
+                            onAction(HomeScreenAction.OnClickTask(task.id))
+                        },
+                        onToggleComplete = { onAction(HomeScreenAction.OnToggleTask(task)) },
+                        onDeleteItem = { onAction(HomeScreenAction.OnDeleteTask(task)) }
+                    )
+                }
             }
         }
-
     }
 }
 
